@@ -2577,7 +2577,7 @@ function RCLootCouncil:CreateFrame(name, cName, title, width, height)
 	f:RestorePosition() -- might need to move this to after whereever GetFrame() is called
 	f:MakeDraggable()
 	f:SetScript("OnMouseWheel", function(f,delta) if IsControlKeyDown() then lwin.OnMouseWheel(f,delta) end end)
-	f:SetTopLevel(true)
+	f:SetToplevel(true)
 
 	local tf = CreateFrame("Frame", "RC_UI_"..cName.."_Title", f, BackdropTemplateMixin and "BackdropTemplate")
 	--tf:SetFrameStrata("DIALOG")
@@ -2599,7 +2599,7 @@ function RCLootCouncil:CreateFrame(name, cName, title, width, height)
 	tf:SetPoint("CENTER",f,"TOP",0,-1)
 	tf:SetScript("OnMouseDown", function(self)
 		self:GetParent():StartMoving()
-		self:GetParent():SetTopLevel(true)
+		self:GetParent():SetToplevel(true)
 	end)
 	tf:SetScript("OnMouseUp", function(self) -- Get double click by trapping time betweem mouse up
 		local frame = self:GetParent()
