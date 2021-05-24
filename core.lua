@@ -2577,10 +2577,11 @@ function RCLootCouncil:CreateFrame(name, cName, title, width, height)
 	f:RestorePosition() -- might need to move this to after whereever GetFrame() is called
 	f:MakeDraggable()
 	f:SetScript("OnMouseWheel", function(f,delta) if IsControlKeyDown() then lwin.OnMouseWheel(f,delta) end end)
+	f:SetTopLevel(true)
 
 	local tf = CreateFrame("Frame", "RC_UI_"..cName.."_Title", f, BackdropTemplateMixin and "BackdropTemplate")
 	--tf:SetFrameStrata("DIALOG")
-	tf:SetToplevel(true)
+	tf:SetFrameLevel(2)
 	tf:SetBackdrop({
 	   --   bgFile = AceGUIWidgetLSMlists.background[db.UI.default.background],
 	   --   edgeFile = AceGUIWidgetLSMlists.border[db.UI.default.border],
@@ -2596,7 +2597,10 @@ function RCLootCouncil:CreateFrame(name, cName, title, width, height)
 	tf:SetMovable(true)
 	tf:SetWidth(width or 250)
 	tf:SetPoint("CENTER",f,"TOP",0,-1)
-	tf:SetScript("OnMouseDown", function(self) self:GetParent():StartMoving() end)
+	tf:SetScript("OnMouseDown", function(self)
+		self:GetParent():StartMoving()
+		self:GetParent():SetTopLevel(true)
+	end)
 	tf:SetScript("OnMouseUp", function(self) -- Get double click by trapping time betweem mouse up
 		local frame = self:GetParent()
 		frame:StopMovingOrSizing()
@@ -2625,6 +2629,7 @@ function RCLootCouncil:CreateFrame(name, cName, title, width, height)
 	   tile = true, tileSize = 255, edgeSize = 16,
 	   insets = { left = 2, right = 2, top = 2, bottom = 2 }
 	})
+	c:SetFrameLevel(1)
 	c:EnableMouse(true)
 	c:SetWidth(450)
 	c:SetHeight(height or 325)
