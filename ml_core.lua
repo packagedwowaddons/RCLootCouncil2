@@ -998,7 +998,7 @@ local function registerAndAnnounceAward(session, winner, response, reason)
 	local changeAward = self.lootTable[session].awarded
 	self.lootTable[session].awarded = winner
 	if self.lootTable[session].bagged then
-		addon.ItemStorage:RemoveItem(self.lootTable[session].bagged)
+		self.lootTable[session].bagged.type = "to_trade"
 	end
 	addon:SendCommand("group", "awarded", session, winner, self.lootTable[session].owner)
 
